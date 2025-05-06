@@ -17,6 +17,8 @@ Debian version: 11 (bullseye)
 USB 延長線，把 V4 拉出來避免干擾，以及可以在 V4 上面貼散熱片(真的很燙)  
 外接天線，V4 內附的天線真的不太行，比收音機的還差  
 
+<br>
+
 # 安裝驅動
 **🧱 系統安裝與更新** 
 ```bash
@@ -57,6 +59,8 @@ sudo update-initramfs -u
 sudo reboot
 ```
 
+<br>
+
 # 功能測試
 **可以輸入測試指令**
 ```bash
@@ -71,6 +75,8 @@ Found 1 device(s):
 Using device 0: Generic RTL2832U OEM
 ...
 ```
+
+<br>
 
 # 安裝 Server 端
 **📦 安裝 rtl_tcp (上面的 rtl-sdr-blog 其實已經包含，但為了保險起見還是再確認一次)**  
@@ -91,6 +97,35 @@ Using device 0: Generic RTL2832U OEM
 ...
 listening at 0.0.0.0:1234
 ```
+
+<br>
+
+# 設定開機後自動啟動 rtl_tcp (非必要)
+**✅ 建立 systemd 服務檔案**
+```bash
+sudo nano /etc/systemd/system/rtl_tcp.service
+```
+
+**應該會是一個空白檔案，然後輸入以下內容**  
+```ini
+[Unit]
+Description=RTL_TCP server for RTL-SDR Blog V4
+After=network.target
+
+[Service]
+ExecStartPre=/usr/local/bin/rtl_biast -b 1
+ExecStart=/usr/local/bin/rtl_tcp -a 0.0.0.0
+Restart=always
+User=pi
+Environment=LD_LIBRARY_PATH=/usr/local/lib
+
+[Install]
+WantedBy=multi-user.target
+```
+- 可使用 which rtl_tcp、which rtl_biast 確認實際路徑  
+- User=pi 表示服務用 pi 帳戶執行，可根據實際狀況進行調整
+
+<br>
 
 # Client端設定
 打開 SDRSharp  
