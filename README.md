@@ -125,6 +125,26 @@ WantedBy=multi-user.target
 - 可使用 which rtl_tcp、which rtl_biast 確認實際路徑  
 - User=pi 表示服務用 pi 帳戶執行，可根據實際狀況進行調整
 
+**✅ 重新載入 systemd、啟用並啟動服務**
+```bash
+sudo systemctl daemon-reexec
+sudo systemctl daemon-reload
+sudo systemctl enable rtl_tcp.service
+sudo systemctl start rtl_tcp.service
+```
+
+**🧪 確認服務狀態**
+```bash
+sudo systemctl status rtl_tcp.service
+```
+
+**如果服務正常，應該會看到類似這樣的輸出**
+```lua
+● rtl_tcp.service - RTL_TCP server for RTL-SDR Blog V4
+   Loaded: loaded (/etc/systemd/system/rtl_tcp.service; enabled)
+   Active: active (running) since ...
+```
+
 <br>
 
 # Client端設定
