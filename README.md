@@ -122,6 +122,7 @@ Environment=LD_LIBRARY_PATH=/usr/local/lib
 [Install]
 WantedBy=multi-user.target
 ```
+- **注意** 若天線不須供電請移除這行 ---> ~~ExecStartPre=/usr/local/bin/rtl_biast -b 1~~
 - 可使用 which rtl_tcp、which rtl_biast 確認實際路徑  
 - User=pi 表示服務用 pi 帳戶執行，可根據實際狀況進行調整
 
@@ -152,8 +153,10 @@ sudo systemctl status rtl_tcp.service
 選擇裝置為：RTL-SDR (TCP)  
 輸入IP位置後即可連線，Port維持預設的1234  
 
+<br>
 
-
+# 參考資料
+[RTL-SDR Blog V4 Users Guide](https://www.rtl-sdr.com/v4)
 
 
 
